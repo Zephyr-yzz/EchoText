@@ -21,6 +21,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "speechmate_database")
+                            .fallbackToDestructiveMigration()  // 添加这行，允许在架构变化时重建数据库
                             .build();
                 }
             }

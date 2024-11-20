@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class OptimizationRequest {
     @SerializedName("model")
-    private String model = "glm-4";
+    private String model = "internlm/internlm2_5-7b-chat";
 
     @SerializedName("messages")
     private List<Message> messages;

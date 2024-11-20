@@ -1,5 +1,6 @@
 package com.example.speechmate.ui.home;
-
+// ... 其他导入语句 ...
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -41,10 +42,13 @@ public class HomeViewModel extends ViewModel {
             public void onResponse(Call<TranscriptionResponse> call, Response<TranscriptionResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String transcribedText = response.body().getText();
+
                     originalText.setValue(transcribedText);
                     
+                   
+                    
                     // 2. 优化文本
-                    optimizeTranscribedText(transcribedText);
+                    optimizeTranscribedText(transcribedText, filePath);
                 } else {
                     error.setValue("转写失败：" + response.message());
                     isLoading.setValue(false);
@@ -53,29 +57,38 @@ public class HomeViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<TranscriptionResponse> call, Throwable t) {
-                error.setValue("转写失败：" + t.getMessage());
+                Log.e("API_ERROR", "转写失败", t);
+                error.setValue("转写失败：" + t.getMessage() + "\n请求URL: " + call.request().url());
                 isLoading.setValue(false);
             }
         });
     }
 
-    private void optimizeTranscribedText(String text) {
+    private void optimizeTranscribedText(String text, String filePath) {
         repository.optimizeText(text).enqueue(new Callback<OptimizationResponse>() {
             @Override
             public void onResponse(Call<OptimizationResponse> call, Response<OptimizationResponse> response) {
-                isLoading.setValue(false);
                 if (response.isSuccessful() && response.body() != null) {
-                    String optimized = response.body().getOptimizedText();
-                    processOptimizedText(optimized);
+                    String optimizedTextValue = response.body().getOptimizedText();
+                    optimizedText.setValue(optimizedTextValue);
+                    
+                    // 直接调用 saveRecording，不需要 enqueue
+                    repository.saveRecording(filePath,
+                            originalText.getValue(),
+                            optimizedTextValue,
+                            "");
+                    
+                    isLoading.setValue(false);
                 } else {
                     error.setValue("优化失败：" + response.message());
+                    isLoading.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(Call<OptimizationResponse> call, Throwable t) {
-                isLoading.setValue(false);
                 error.setValue("优化失败：" + t.getMessage());
+                isLoading.setValue(false);
             }
         });
     }
@@ -94,6 +107,24 @@ public class HomeViewModel extends ViewModel {
                 tags.setValue(tagList);
             }
         }
+    }
+
+    private void saveRecording(String filePath, String originalText, String optimizedText, String tags) {
+        // 这里添加保存录音记录的逻辑
+        repository.saveRecording(filePath, originalText, optimizedText, tags);
+            // .enqueue(new Callback<Void>() {
+            //     @Override
+            //     public void onResponse(Call<Void> call, Response<Void> response) {
+            //         if (!response.isSuccessful()) {
+            //             error.setValue("保存记录失败：" + response.message());
+            //         }
+            //     }
+
+            //     @Override
+            //     public void onFailure(Call<Void> call, Throwable t) {
+            //         error.setValue("保存记录失败：" + t.getMessage());
+            //     }
+            // });
     }
 
     public LiveData<String> getOriginalText() {

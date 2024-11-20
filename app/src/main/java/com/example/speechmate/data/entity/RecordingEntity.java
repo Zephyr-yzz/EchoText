@@ -9,11 +9,10 @@ public class RecordingEntity {
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String filePath;
-    private long duration;
-    private Date createdAt;
     private String originalText;
     private String optimizedText;
     private String tags;
+    private Date createdAt;
 
     public long getId() {
         return id;
@@ -29,22 +28,6 @@ public class RecordingEntity {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(long duration) {
-        this.duration = duration;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public String getOriginalText() {
@@ -69,5 +52,13 @@ public class RecordingEntity {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 } 

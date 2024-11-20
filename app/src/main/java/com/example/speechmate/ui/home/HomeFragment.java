@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
     private void requestPermissions() {
         ActivityCompat.requestPermissions(requireActivity(),
                 new String[]{Manifest.permission.RECORD_AUDIO},
+    
                 PERMISSION_REQUEST_CODE);
     }
 
