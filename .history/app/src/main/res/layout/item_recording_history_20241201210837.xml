@@ -32,23 +32,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
+                <TextView
                     android:id="@+id/tv_original_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:textIsSelectable="true"
-                    android:padding="8dp" />
+                    android:textSize="14sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/tv_optimized_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:textIsSelectable="true"
-                    android:padding="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp" />
             </LinearLayout>
         </ScrollView>
 
@@ -63,25 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="end">
-
-            <ImageButton
-                android:id="@+id/btn_play"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="8dp"
-                android:src="@drawable/ic_play"
-               />
-
-            <ImageButton
-                android:id="@+id/btn_delete"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="8dp"
-                android:src="@drawable/ic_delete"
-                />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -104,6 +80,25 @@
                     android:padding="8dp"
                     android:src="@drawable/ic_save"
                     android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/btn_play"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_play"
+                   />
+
+                <ImageButton
+                    android:id="@+id/btn_delete"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_delete"
+                    />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -28,13 +28,4 @@ public class HistoryViewModel extends AndroidViewModel {
             database.recordingDao().delete(recording);
         }).start();
     }
-
-    public void updateRecording(RecordingEntity recording, String originalText, String optimizedText) {
-        recording.setOriginalText(originalText);
-        recording.setOptimizedText(optimizedText);
-        
-        new Thread(() -> {
-            database.recordingDao().update(recording);
-        }).start();
-    }
 } 

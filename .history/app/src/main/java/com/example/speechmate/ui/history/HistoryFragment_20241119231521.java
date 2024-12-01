@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import java.io.IOException;
 
 @AndroidEntryPoint
-public class HistoryFragment extends Fragment implements RecordingAdapter.OnRecordingListener {
+public class HistoryFragment extends Fragment implements RecordingAdapter.OnRecordingClickListener {
     private FragmentHistoryBinding binding;
     private HistoryViewModel viewModel;
     private RecordingAdapter adapter;
@@ -67,17 +67,6 @@ public class HistoryFragment extends Fragment implements RecordingAdapter.OnReco
     @Override
     public void onDeleteClick(RecordingEntity recording) {
         viewModel.deleteRecording(recording);
-    }
-
-    @Override
-    public void onEditClick(RecordingEntity recording) {
-        Toast.makeText(requireContext(), "开始编辑", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSaveClick(RecordingEntity recording, String originalText, String optimizedText) {
-        viewModel.updateRecording(recording, originalText, optimizedText);
-        Toast.makeText(requireContext(), "保存成功", Toast.LENGTH_SHORT).show();
     }
 
     @Override

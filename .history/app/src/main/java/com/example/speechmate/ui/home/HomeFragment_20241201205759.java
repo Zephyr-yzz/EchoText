@@ -78,14 +78,6 @@ public class HomeFragment extends Fragment {
                 requestPermissions();
             }
         });
-
-        binding.fabRecord.setOnLongClickListener(v -> {
-            if (recordingState != RecordingState.IDLE) {
-                stopRecording();
-                return true;
-            }
-            return false;
-        });
     }
 
     private boolean checkPermissions() {
@@ -112,8 +104,9 @@ public class HomeFragment extends Fragment {
             mediaRecorder.prepare();
             mediaRecorder.start();
             recordingState = RecordingState.RECORDING;
-            binding.fabRecord.setImageResource(R.drawable.ic_pause);
-            Toast.makeText(requireContext(), "录音开始，长按结束录音", Toast.LENGTH_SHORT).show();
+            isRecording = true;
+            binding.fabRecord.setImageResource(R.drawable.ic_stop);
+            Toast.makeText(requireContext(), "录音开始", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(requireContext(), "录音失败", Toast.LENGTH_SHORT).show();
@@ -122,20 +115,15 @@ public class HomeFragment extends Fragment {
 
     private void stopRecording() {
         if (mediaRecorder != null) {
-            try {
-                mediaRecorder.stop();
-                mediaRecorder.release();
-                mediaRecorder = null;
-                recordingState = RecordingState.IDLE;
-                binding.fabRecord.setImageResource(R.drawable.ic_mic);
-                Toast.makeText(requireContext(), "录音结束", Toast.LENGTH_SHORT).show();
-                
-                // 开始处理录音文件
-                viewModel.processRecording(currentRecordingPath);
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-                Toast.makeText(requireContext(), "停止录音失败", Toast.LENGTH_SHORT).show();
-            }
+            mediaRecorder.stop();
+            mediaRecorder.release();
+            mediaRecorder = null;
+            isRecording = false;
+            binding.fabRecord.setImageResource(R.drawable.ic_mic);
+            Toast.makeText(requireContext(), "录音结束", Toast.LENGTH_SHORT).show();
+            
+            // 开始处理录音文件
+            viewModel.processRecording(currentRecordingPath);
         }
     }
 
@@ -185,33 +173,5 @@ public class HomeFragment extends Fragment {
             stopRecording();
         }
         binding = null;
-    }
-
-    private void pauseRecording() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            try {
-                mediaRecorder.pause();
-                recordingState = RecordingState.PAUSED;
-                binding.fabRecord.setImageResource(R.drawable.ic_mic);
-                Toast.makeText(requireContext(), "录音已暂停", Toast.LENGTH_SHORT).show();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-                Toast.makeText(requireContext(), "暂停录音失败", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void resumeRecording() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            try {
-                mediaRecorder.resume();
-                recordingState = RecordingState.RECORDING;
-                binding.fabRecord.setImageResource(R.drawable.ic_pause);
-                Toast.makeText(requireContext(), "录音继续", Toast.LENGTH_SHORT).show();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-                Toast.makeText(requireContext(), "继续录音失败", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 } 

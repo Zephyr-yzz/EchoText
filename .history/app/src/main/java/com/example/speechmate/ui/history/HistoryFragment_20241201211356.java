@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import java.io.IOException;
 
 @AndroidEntryPoint
-public class HistoryFragment extends Fragment implements RecordingAdapter.OnRecordingListener {
+public class HistoryFragment extends Fragment implements RecordingAdapter.OnRecordingClicListener {
     private FragmentHistoryBinding binding;
     private HistoryViewModel viewModel;
     private RecordingAdapter adapter;

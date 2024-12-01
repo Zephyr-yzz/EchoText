@@ -15,16 +15,14 @@ import java.util.Locale;
 
 public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.RecordingViewHolder> {
     private List<RecordingEntity> recordings = new ArrayList<>();
-    private final OnRecordingListener listener;
+    private final OnRecordingClickListener listener;
 
-    public interface OnRecordingListener {
+    public interface OnRecordingClickListener {
         void onPlayClick(RecordingEntity recording);
         void onDeleteClick(RecordingEntity recording);
-        void onEditClick(RecordingEntity recording);
-        void onSaveClick(RecordingEntity recording, String originalText, String optimizedText);
     }
 
-    public RecordingAdapter(OnRecordingListener listener) {
+    public RecordingAdapter(OnRecordingClickListener listener) {
         this.listener = listener;
     }
 
@@ -54,7 +52,6 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.Reco
     class RecordingViewHolder extends RecyclerView.ViewHolder {
         private final ItemRecordingHistoryBinding binding;
         private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        private boolean isEditing = false;
 
         RecordingViewHolder(ItemRecordingHistoryBinding binding) {
             super(binding.getRoot());
@@ -79,41 +76,7 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.Reco
                 }
             }
 
-            // 默认设置为不可编辑
-            binding.tvOriginalText.setEnabled(false);
-            binding.tvOptimizedText.setEnabled(false);
-
-            // 编辑按钮点击事件
-            binding.btnEdit.setOnClickListener(v -> {
-                if (!isEditing) {
-                    // 进入编辑模式
-                    isEditing = true;
-                    binding.tvOriginalText.setEnabled(true);
-                    binding.tvOptimizedText.setEnabled(true);
-                    binding.btnEdit.setVisibility(View.GONE);
-                    binding.btnSave.setVisibility(View.VISIBLE);
-                    listener.onEditClick(recording);
-                }
-            });
-
-            // 保存按钮点击事件
-            binding.btnSave.setOnClickListener(v -> {
-                if (isEditing) {
-                    // 退出编辑模式
-                    isEditing = false;
-                    binding.tvOriginalText.setEnabled(false);
-                    binding.tvOptimizedText.setEnabled(false);
-                    binding.btnEdit.setVisibility(View.VISIBLE);
-                    binding.btnSave.setVisibility(View.GONE);
-                    
-                    // 保存修改的内容
-                    String originalText = binding.tvOriginalText.getText().toString();
-                    String optimizedText = binding.tvOptimizedText.getText().toString();
-                    listener.onSaveClick(recording, originalText, optimizedText);
-                }
-            });
-
-            // 现有的播放和删除按钮事件
+            // 设置点击事件
             binding.btnPlay.setOnClickListener(v -> listener.onPlayClick(recording));
             binding.btnDelete.setOnClickListener(v -> listener.onDeleteClick(recording));
         }

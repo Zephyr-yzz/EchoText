@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment {
             mediaRecorder.start();
             recordingState = RecordingState.RECORDING;
             binding.fabRecord.setImageResource(R.drawable.ic_pause);
-            Toast.makeText(requireContext(), "录音开始，长按结束录音", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "录音开始", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(requireContext(), "录音失败", Toast.LENGTH_SHORT).show();

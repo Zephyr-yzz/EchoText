@@ -78,14 +78,6 @@ public class HomeFragment extends Fragment {
                 requestPermissions();
             }
         });
-
-        binding.fabRecord.setOnLongClickListener(v -> {
-            if (recordingState != RecordingState.IDLE) {
-                stopRecording();
-                return true;
-            }
-            return false;
-        });
     }
 
     private boolean checkPermissions() {
@@ -113,7 +105,7 @@ public class HomeFragment extends Fragment {
             mediaRecorder.start();
             recordingState = RecordingState.RECORDING;
             binding.fabRecord.setImageResource(R.drawable.ic_pause);
-            Toast.makeText(requireContext(), "录音开始，长按结束录音", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "录音开始", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(requireContext(), "录音失败", Toast.LENGTH_SHORT).show();
@@ -185,33 +177,5 @@ public class HomeFragment extends Fragment {
             stopRecording();
         }
         binding = null;
-    }
-
-    private void pauseRecording() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            try {
-                mediaRecorder.pause();
-                recordingState = RecordingState.PAUSED;
-                binding.fabRecord.setImageResource(R.drawable.ic_mic);
-                Toast.makeText(requireContext(), "录音已暂停", Toast.LENGTH_SHORT).show();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-                Toast.makeText(requireContext(), "暂停录音失败", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void resumeRecording() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            try {
-                mediaRecorder.resume();
-                recordingState = RecordingState.RECORDING;
-                binding.fabRecord.setImageResource(R.drawable.ic_pause);
-                Toast.makeText(requireContext(), "录音继续", Toast.LENGTH_SHORT).show();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-                Toast.makeText(requireContext(), "继续录音失败", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 } 
