@@ -38,8 +38,8 @@ public class SpeechRepository {
         return apiService.transcribeAudio(body, model);
     }
 
-    public Call<OptimizationResponse> optimizeText(String text) {
-        return apiService.optimizeText(new OptimizationRequest(text));
+    public Call<OptimizationResponse> optimizeText(String text, boolean isTranslation) {
+        return apiService.optimizeText(new OptimizationRequest(text, isTranslation));
     }
 
     public void saveRecording(String filePath, String originalText, String optimizedText, String tags) {

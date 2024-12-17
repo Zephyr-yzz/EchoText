@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SpeechMate</string>
+    <string name="optimize_text">优化文本</string>
+    <string name="translate_text">翻译文本</string>
 </resources>
