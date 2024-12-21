@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/privacyPolicyTitle"
+        android:layout_width="119dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:gravity="center"
+        android:text="隐私政策"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="欢迎使用我们的语音助手软件！"
+        android:textSize="16dp"
+        android:lineSpacingExtra="8dp"
+        android:padding="16dp"
+        android:textStyle="bold"
+        android:background="?android:attr/selectableItemBackground"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/privacyPolicyContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_policy_content"
+            android:textSize="16sp"
+            android:lineSpacingExtra="8dp"
+            android:padding="16dp"
+            android:background="?android:attr/selectableItemBackground" />
+    </ScrollView>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <RadioButton
+            android:id="@+id/radio_agree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="同意并继续"
+            android:gravity="center"
+            android:padding="10dp" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background=" ?attr/colorPrimary"/>
+        <RadioButton
+            android:id="@+id/radio_exit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="不同意并退出"
+            android:gravity="center"
+            android:padding="10dp"
+            android:checked="false" />
+
+    </RadioGroup>
+
+</LinearLayout>

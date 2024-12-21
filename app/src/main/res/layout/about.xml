@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center"
+        android:text="关于我们:"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="396dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--        分割线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#f5f5f5" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autoLink="web"
+
+                android:lineSpacingExtra="8dp"
+                android:padding="8dp"
+                android:text="这里是关于我们的内容，可以包含我们项目的简介、团队信息、联系方式等。
+                \n 我们基于android的学习，制作了语音助手类似的软件；
+                \n 项目小组成员：王艺帆，李思嘉，杨子颖
+                \n 项目指导老师：李志强
+                \n 项目单位：陕西师范大学计创2201班
+
+                \n\n例如：'http://www.example.com'访问我们的网站。"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

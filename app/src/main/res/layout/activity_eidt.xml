@@ -1,0 +1,147 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:title="修改信息"
+            android:titleTextColor="@android:color/white"
+            android:theme="@style/Base.Theme.SpeechMate" />
+
+        <!-- 用户名输入框 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"> <!-- 添加顶部间距 -->
+
+            <TextView
+                android:id="@+id/text_user"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:text="用户名：" />
+
+            <EditText
+                android:id="@+id/edit_user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入用户名"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:padding="12dp"/>
+        </LinearLayout>
+
+        <!-- 密码输入框 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/text_paw"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:text="密码：" />
+
+            <EditText
+                android:id="@+id/edit_paw"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPassword"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
+                android:hint="请输入密码"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:padding="12dp"/>
+        </LinearLayout>
+
+        <!-- 联系方式输入框 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"> <!-- 水平居中 -->
+
+            <TextView
+                android:id="@+id/text_contact"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:text="联系方式：" />
+
+            <EditText
+                android:id="@+id/edit_contact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入联系方式"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:digits="0123456789"
+                android:padding="12dp"/>
+        </LinearLayout>
+
+        <!-- 签名输入框 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"> <!-- 水平居中 -->
+
+            <TextView
+                android:id="@+id/text_sign"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:text="签名：" />
+
+            <EditText
+                android:id="@+id/edit_sign"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:hint="请输入个性签名"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:padding="12dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_sign"
+            android:text="保存"
+            android:layout_margin="16dp"
+            android:background="?attr/colorPrimary"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+</RelativeLayout>

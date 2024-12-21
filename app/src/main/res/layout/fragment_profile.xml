@@ -30,6 +30,7 @@
             app:cardCornerRadius="40dp">
 
             <ImageView
+                android:id="@+id/avatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/person"/>
@@ -50,15 +51,16 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:text="一二一二"/>
+                android:text="登录/注册"
+                android:clickable="true"/>
 
             <TextView
-                android:id="@+id/nickname"
+                android:id="@+id/sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
-                android:text="这个人很懒，什么都没有留下~"/>
+                />
 
 
 
@@ -75,20 +77,21 @@
 
         />
 
-<!--    修改密码-->
+<!--    修改信息-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="60dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="修改密码"
+            android:text="修改信息"
             android:layout_centerVertical="true"/>
 
         <ImageView
+            android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_keyboard_arrow_right_24"
@@ -105,38 +108,38 @@
     </RelativeLayout>
 
 <!--    设置-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="54dp"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="10dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置"
-            android:layout_centerVertical="true"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="设置"-->
+<!--            android:layout_centerVertical="true"/>-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_keyboard_arrow_right_24"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/baseline_keyboard_arrow_right_24"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"/>-->
 
-        <!--        分割线-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#f5f5f5"/>
+<!--        &lt;!&ndash;        分割线&ndash;&gt;-->
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:background="#f5f5f5"/>-->
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
 <!--    关于我们-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="60dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -147,6 +150,7 @@
             android:layout_centerVertical="true"/>
 
         <ImageView
+            android:id="@+id/rlv_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_keyboard_arrow_right_24"
@@ -166,7 +170,7 @@
 <!--    使用帮助-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="60dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -177,6 +181,7 @@
             android:layout_centerVertical="true"/>
 
         <ImageView
+            android:id="@+id/rlv_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_keyboard_arrow_right_24"
@@ -196,7 +201,7 @@
 <!--    隐私政策-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="60dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -207,6 +212,7 @@
             android:layout_centerVertical="true"/>
 
         <ImageView
+            android:id="@+id/rlv_policy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_keyboard_arrow_right_24"
