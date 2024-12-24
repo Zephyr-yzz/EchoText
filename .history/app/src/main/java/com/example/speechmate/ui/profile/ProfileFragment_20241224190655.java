@@ -1,35 +1,13 @@
 package com.example.speechmate.ui.profile;
-import android.Manifest;
-import android.app.Activity;
-import android.app.Dialog;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.widget.RadioButton;
-import android.widget.Toast;
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-import com.example.speechmate.HelpCenterActivity;
-import com.example.speechmate.R;
 import com.example.speechmate.databinding.FragmentProfileBinding;
-import com.example.speechmate.eidt;
-import com.example.speechmate.login;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -159,5 +137,4 @@ private void showPolicyDialog() {
     radioExit.setOnClickListener(v -> requireActivity().finish());
 
     policyDialog.show();
-}
 }
