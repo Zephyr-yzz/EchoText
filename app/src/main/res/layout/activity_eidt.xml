@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -17,6 +18,30 @@
             android:title="修改信息"
             android:titleTextColor="@android:color/white"
             android:theme="@style/Base.Theme.SpeechMate" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="40dp"
+                android:layout_gravity="center"> <!-- 确保 CardView 水平居中 -->
+
+                <ImageView
+                    android:id="@+id/imgavatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/avatar"
+                    android:scaleType="centerCrop"
+                    android:clickable="true"
+                    android:contentDescription="用户头像"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
         <!-- 用户名输入框 -->
         <LinearLayout

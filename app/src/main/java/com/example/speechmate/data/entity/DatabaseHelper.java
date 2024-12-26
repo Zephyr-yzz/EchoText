@@ -15,17 +15,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PHONE = "pho";
     private static final String COLUMN_SIGN = "sign";
 
+    private static final String COLUMN_AVATAR = "avatar"; // 新增头像列
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    //创建用户信息表
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 COLUMN_USERNAME + " TEXT PRIMARY KEY, " +
                 COLUMN_PASSWORD + " TEXT NOT NULL, " +
                 COLUMN_PHONE + " TEXT NOT NULL, " +
-                COLUMN_SIGN + " TEXT)";
+                COLUMN_SIGN + " TEXT,"+
+                COLUMN_AVATAR + "TEXT)";
         db.execSQL(CREATE_USER_TABLE);
     }
 
@@ -36,13 +40,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // 插入用户信息
-    public boolean insertUser(String username, String password, String phone, String sign) {
+    public boolean insertUser(String username, String password, String phone, String sign, String avatar) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, username);
         values.put(COLUMN_PASSWORD, password);
         values.put(COLUMN_PHONE, phone);
         values.put(COLUMN_SIGN, sign);
+        values.put(COLUMN_AVATAR, avatar);
         long result = db.insert(TABLE_NAME, null, values);
         return result != -1; // 返回插入是否成功
     }
@@ -66,13 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //更新用户信息
-    public boolean updateUser(String oldUsername, String newUsername, String password, String phone, String sign) {
+    public boolean updateUser(String oldUsername, String newUsername, String password, String phone, String sign, String avatar) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, newUsername);
         values.put(COLUMN_PASSWORD, password);
         values.put(COLUMN_PHONE, phone);
         values.put(COLUMN_SIGN, sign);
+        values.put(COLUMN_AVATAR, avatar);
 
         // 更新用户信息
         int result = db.update(TABLE_NAME, values, COLUMN_USERNAME + "=?", new String[]{oldUsername});

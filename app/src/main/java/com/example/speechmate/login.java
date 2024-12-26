@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.Toast; // 导入 Toast 类
 
 import com.example.speechmate.data.entity.DatabaseHelper;
+import com.example.speechmate.ui.home.HomeFragment;
+import com.example.speechmate.ui.profile.ProfileFragment;
 
 public class login extends AppCompatActivity {
 
@@ -75,7 +77,7 @@ public class login extends AppCompatActivity {
             Cursor cursor = databaseHelper.getUser(username);
             if (cursor.moveToFirst()) {
                 String sign = cursor.getString(cursor.getColumnIndexOrThrow("sign"));  // 获取签名
-                Intent intent = new Intent(this, Mine.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("nickname", username); // 传递用户名作为昵称
                 intent.putExtra("sign", sign); // 传递签名
                 startActivity(intent);

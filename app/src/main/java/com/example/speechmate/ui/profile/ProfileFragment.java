@@ -1,10 +1,14 @@
 package com.example.speechmate.ui.profile;
+import static android.content.Intent.getIntent;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.app.Dialog;
@@ -34,7 +38,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ProfileFragment extends Fragment {
+    private ImageView imageViewAbout;
+    private ImageView imageViewHelp;
+    private ImageView imageViewPolicy;
+    private Dialog aboutDialog;
+    private Dialog helpDialog;
+    private Dialog policyDialog;//隐私弹窗
     private FragmentProfileBinding binding;
+    private static final int PICK_IMAGE = 1;
+    private static final int REQUEST_PERMISSION = 100;
+    private ImageView imgAvatar;
+    private TextView textNickname;
+    private TextView textSign;
 
     @Nullable
     @Override
@@ -94,7 +109,7 @@ public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceStat
         startActivity(editIntent);
     });
 
-    // 绑定帮助中心点击事件
+    // 绑定使用帮助点击事件
     binding.rlvHelp.setOnClickListener(v -> {
         Intent intent = new Intent(getActivity(), HelpCenterActivity.class);
         startActivity(intent);
@@ -109,9 +124,18 @@ public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceStat
     binding.rlvPolicy.setOnClickListener(v -> {
         showPolicyDialog();
     });
+
+    // 接收登录传递的用户信息
+    if (getArguments() != null) {
+        String nickname = getArguments().getString("nickname");
+        String sign = getArguments().getString("sign");
+        binding.username.setText(nickname); // 更新昵称
+        binding.sign.setText(sign); // 更新签名
+    }
 }
 
-// 打开图库方法
+
+    // 打开图库方法
 private void openGallery() {
     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
     startActivityForResult(intent, 100);

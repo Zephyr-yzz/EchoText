@@ -38,6 +38,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:enabled="false"
+                    android:textColor="@color/black"
                     android:textIsSelectable="true"
                     android:padding="8dp" />
 
@@ -46,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:textColor="@color/black"
                     android:enabled="false"
                     android:textIsSelectable="true"
                     android:padding="8dp" />

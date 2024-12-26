@@ -35,6 +35,7 @@ public class register extends AppCompatActivity {
     private EditText editUser, editPassword, editPhone, editSign;
     private Button buttonRegister;
     private DatabaseHelper databaseHelper;
+    private Uri avatarUri; // 用于存储头像的 URI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class register extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 显示返回按钮
-        toolbar.setNavigationIcon(R.drawable.baseline_keyboard_arrow_left_24); // 设置返回图标，确保你有这个图标
+        toolbar.setNavigationIcon(R.drawable.baseline_keyboard_arrow_left_24); // 设置返回图标
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 显示返回按钮
         getSupportActionBar().setTitle("注册"); // 设置标题
 
@@ -101,8 +102,8 @@ public class register extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            imgAvatar.setImageURI(selectedImage); // 设置选择的头像
+            avatarUri = data.getData(); // 获取选中的头像 URI
+            imgAvatar.setImageURI(avatarUri); // 设置选择的头像
         }
     }
 
@@ -126,13 +127,14 @@ public class register extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
         String phone = editPhone.getText().toString().trim();
         String sign = editSign.getText().toString().trim();
+        String avatar = avatarUri != null ? avatarUri.toString() : null; // 将头像 URI 转换为字符串
 
         if (username.isEmpty() || password.isEmpty() || phone.isEmpty()) {
             Toast.makeText(this, "用户名、密码和联系方式不能为空", Toast.LENGTH_SHORT).show();
             return;
     }
 
-        boolean isInserted = databaseHelper.insertUser(username, password, phone, sign);
+        boolean isInserted = databaseHelper.insertUser(username, password, phone, sign, avatar);
         if (isInserted) {
             Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
             finish(); // 返回登录界面

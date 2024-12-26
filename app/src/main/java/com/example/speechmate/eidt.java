@@ -2,26 +2,40 @@ package com.example.speechmate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.speechmate.data.entity.DatabaseHelper;
 import android.util.Log;
 
 public class eidt extends AppCompatActivity {
+    //    设置头像
+    private static final int PICK_IMAGE = 1;
+    private static final int REQUEST_PERMISSION = 100;
     private EditText editUsername, editPassword, editPhone, editSign;
+    private ImageView imageViewAvatar; // 用于显示头像
     private Button buttonSave;
     private DatabaseHelper databaseHelper;
     private String username;
+    private Uri avatarUri; // 用于存储头像的 URI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +64,27 @@ public class eidt extends AppCompatActivity {
         editSign = findViewById(R.id.edit_sign);
         buttonSave = findViewById(R.id.button_save);
 
+        imageViewAvatar = findViewById(R.id.imgavatar);
+
         // 加载用户信息
         loadUserData(username);
+
+        //头像点击事件
+        imageViewAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 检查权限
+                if (ContextCompat.checkSelfPermission(eidt.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // 请求权限
+                    ActivityCompat.requestPermissions(eidt.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+                } else {
+                    // 权限已被授予，打开图库
+                    openGallery();
+                }
+            }
+        });
 
         // 保存按钮点击事件
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +94,12 @@ public class eidt extends AppCompatActivity {
             }
         });
 
+    }
+
+    //    设置头像及权限申请
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE);
     }
 
     private void loadUserData(String username) {
@@ -75,6 +114,11 @@ public class eidt extends AppCompatActivity {
                 editPassword.setText(cursor.getString(cursor.getColumnIndexOrThrow("paw")));
                 editPhone.setText(cursor.getString(cursor.getColumnIndexOrThrow("pho")));
                 editSign.setText(cursor.getString(cursor.getColumnIndexOrThrow("sign")));
+                String avatar = cursor.getString(cursor.getColumnIndexOrThrow("avatar"));
+                if (avatar != null) {
+                    avatarUri = Uri.parse(avatar);
+                    imageViewAvatar.setImageURI(avatarUri);
+                }
             } else {
                 Toast.makeText(this, "用户信息加载失败", Toast.LENGTH_SHORT).show();
             }
@@ -85,29 +129,33 @@ public class eidt extends AppCompatActivity {
         String newPassword = editPassword.getText().toString().trim();
         String newPhone = editPhone.getText().toString().trim();
         String newSign = editSign.getText().toString().trim();
+        String newAvatar = avatarUri != null ? avatarUri.toString() : null;
 
         // 创建AsyncTask来更新用户信息
-        UpdateUserTask task = new UpdateUserTask(newUsername, newPassword, newPhone, newSign);
+        UpdateUserTask task = new UpdateUserTask(newUsername, newPassword, newPhone, newSign, newAvatar);
         task.execute();
-        
+
     }
 
+    //更新用户信息的异步任务
     private class UpdateUserTask extends AsyncTask<Void, Void, Boolean> {
-        private String newUsername, newPassword, newPhone, newSign;
+        private String newUsername, newPassword, newPhone, newSign, newAvatar;
 
-        public UpdateUserTask(String newUsername, String newPassword, String newPhone, String newSign) {
+        public UpdateUserTask(String newUsername, String newPassword, String newPhone, String newSign, String newAvatar) {
             this.newUsername = newUsername;
             this.newPassword = newPassword;
             this.newPhone = newPhone;
             this.newSign = newSign;
+            this.newAvatar = newAvatar; // 新增头像参数
         }
 
-        @Override
+
         protected Boolean doInBackground(Void... voids) {
             Log.d("EditActivity", "Updating user in background...");
             Log.d("EditActivity", "Updating user with username: " + username + ", newUsername: " + newUsername + ", password: " + newPassword + ", phone: " + newPhone + ", sign: " + newSign);
-            return databaseHelper.updateUser(username, newUsername, newPassword, newPhone, newSign);
+            return databaseHelper.updateUser(username, newUsername, newPassword, newPhone, newSign, newAvatar);
         }
+
 
         @Override
         protected void onPostExecute(Boolean isUpdated) {
@@ -123,10 +171,27 @@ public class eidt extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+            avatarUri = data.getData(); // 获取选中的头像 URI
+            imageViewAvatar.setImageURI(avatarUri); // 更新 ImageView 显示选择的头像
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish(); // 返回上一个活动
+//                finish(); // 返回上一个活动
+
+                // 返回到上一个 Fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if (fragmentManager.getBackStackEntryCount() > 0) {
+                    fragmentManager.popBackStack(); // 弹出栈顶的 Fragment
+                } else {
+                    finish(); // 如果没有 Fragment 在栈中，结束 Activity
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
