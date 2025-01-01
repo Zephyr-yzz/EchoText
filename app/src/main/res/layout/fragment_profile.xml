@@ -51,18 +51,19 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:text="登录/注册"
+
                 android:clickable="true"/>
+<!--            android:text="登录/注册"-->
 
             <TextView
                 android:id="@+id/sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="这个人很懒，什么都没留下~"
+
                 android:layout_marginTop="10dp"
                 />
-
+<!--android:text="这个人很懒，什么都没留下~"-->
 
 
 

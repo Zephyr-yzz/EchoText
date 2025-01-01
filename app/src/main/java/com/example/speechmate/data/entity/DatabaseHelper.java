@@ -1,9 +1,11 @@
 package com.example.speechmate.data.entity;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -19,6 +21,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+//        SQLiteDatabase db = getWritableDatabase();
+//        onCreate(db);
     }
 
     //创建用户信息表
@@ -29,8 +33,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PASSWORD + " TEXT NOT NULL, " +
                 COLUMN_PHONE + " TEXT NOT NULL, " +
                 COLUMN_SIGN + " TEXT,"+
-                COLUMN_AVATAR + "TEXT)";
+                COLUMN_AVATAR + " TEXT)";
         db.execSQL(CREATE_USER_TABLE);
+//        Log.d("Yes","ok");
     }
 
     @Override
@@ -83,5 +88,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // 更新用户信息
         int result = db.update(TABLE_NAME, values, COLUMN_USERNAME + "=?", new String[]{oldUsername});
         return result > 0; // 返回更新是否成功
+    }
+
+    public void delete(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE "+TABLE_NAME);
+    }
+
+    @SuppressLint("Range")
+    public void GetUser(Cursor cursor){
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
+
+            Log.d(cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME)),cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)));
+        }
+    }
+    public void fun(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("PRAGMA table_info("+TABLE_NAME+")");
     }
 }

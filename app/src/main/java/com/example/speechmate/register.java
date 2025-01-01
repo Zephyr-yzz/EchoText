@@ -127,12 +127,12 @@ public class register extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
         String phone = editPhone.getText().toString().trim();
         String sign = editSign.getText().toString().trim();
-        String avatar = avatarUri != null ? avatarUri.toString() : null; // 将头像 URI 转换为字符串
+        String avatar = avatarUri != null ? avatarUri.toString() : ""; // 将头像 URI 转换为字符串
 
         if (username.isEmpty() || password.isEmpty() || phone.isEmpty()) {
             Toast.makeText(this, "用户名、密码和联系方式不能为空", Toast.LENGTH_SHORT).show();
             return;
-    }
+        }
 
         boolean isInserted = databaseHelper.insertUser(username, password, phone, sign, avatar);
         if (isInserted) {
@@ -142,5 +142,5 @@ public class register extends AppCompatActivity {
         else {
             Toast.makeText(this, "注册失败", Toast.LENGTH_SHORT).show();
         }
-}
+    }
 }

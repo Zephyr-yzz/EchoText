@@ -31,7 +31,7 @@ public class eidt extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;
     private static final int REQUEST_PERMISSION = 100;
     private EditText editUsername, editPassword, editPhone, editSign;
-    private ImageView imageViewAvatar; // 用于显示头像
+//    private ImageView imageViewAvatar; // 用于显示头像
     private Button buttonSave;
     private DatabaseHelper databaseHelper;
     private String username;
@@ -64,27 +64,27 @@ public class eidt extends AppCompatActivity {
         editSign = findViewById(R.id.edit_sign);
         buttonSave = findViewById(R.id.button_save);
 
-        imageViewAvatar = findViewById(R.id.imgavatar);
+//        imageViewAvatar = findViewById(R.id.imgavatar);
 
         // 加载用户信息
         loadUserData(username);
 
         //头像点击事件
-        imageViewAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 检查权限
-                if (ContextCompat.checkSelfPermission(eidt.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    // 请求权限
-                    ActivityCompat.requestPermissions(eidt.this,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
-                } else {
-                    // 权限已被授予，打开图库
-                    openGallery();
-                }
-            }
-        });
+//        imageViewAvatar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 检查权限
+//                if (ContextCompat.checkSelfPermission(eidt.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//                    // 请求权限
+//                    ActivityCompat.requestPermissions(eidt.this,
+//                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+//                } else {
+//                    // 权限已被授予，打开图库
+//                    openGallery();
+//                }
+//            }
+//        });
 
         // 保存按钮点击事件
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +117,7 @@ public class eidt extends AppCompatActivity {
                 String avatar = cursor.getString(cursor.getColumnIndexOrThrow("avatar"));
                 if (avatar != null) {
                     avatarUri = Uri.parse(avatar);
-                    imageViewAvatar.setImageURI(avatarUri);
+//                    imageViewAvatar.setImageURI(avatarUri);
                 }
             } else {
                 Toast.makeText(this, "用户信息加载失败", Toast.LENGTH_SHORT).show();
@@ -175,7 +175,7 @@ public class eidt extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             avatarUri = data.getData(); // 获取选中的头像 URI
-            imageViewAvatar.setImageURI(avatarUri); // 更新 ImageView 显示选择的头像
+//            imageViewAvatar.setImageURI(avatarUri); // 更新 ImageView 显示选择的头像
         }
     }
 
