@@ -23,6 +23,8 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<List<String>> tags = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final MutableLiveData<String> error = new MutableLiveData<>();
+    private boolean isTranslationMode = false;
+    private final MutableLiveData<Boolean> translationMode = new MutableLiveData<>(false);
     
     private final SpeechRepository repository;
 
@@ -65,32 +67,33 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void optimizeTranscribedText(String text, String filePath) {
-        repository.optimizeText(text).enqueue(new Callback<OptimizationResponse>() {
-            @Override
-            public void onResponse(Call<OptimizationResponse> call, Response<OptimizationResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    String optimizedTextValue = response.body().getOptimizedText();
-                    optimizedText.setValue(optimizedTextValue);
-                    
-                    // 直接调用 saveRecording，不需要 enqueue
-                    repository.saveRecording(filePath,
-                            originalText.getValue(),
-                            optimizedTextValue,
-                            "");
-                    
-                    isLoading.setValue(false);
-                } else {
-                    error.setValue("优化失败：" + response.message());
+        repository.optimizeText(text, isTranslationMode)
+            .enqueue(new Callback<OptimizationResponse>() {
+                @Override
+                public void onResponse(Call<OptimizationResponse> call, Response<OptimizationResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        String optimizedTextValue = response.body().getOptimizedText();
+                        optimizedText.setValue(optimizedTextValue);
+                        
+                        // 直接调用 saveRecording，不需要 enqueue
+                        repository.saveRecording(filePath,
+                                originalText.getValue(),
+                                optimizedTextValue,
+                                "");
+                        
+                        isLoading.setValue(false);
+                    } else {
+                        error.setValue("优化失败：" + response.message());
+                        isLoading.setValue(false);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<OptimizationResponse> call, Throwable t) {
+                    error.setValue("优化失败：" + t.getMessage());
                     isLoading.setValue(false);
                 }
-            }
-
-            @Override
-            public void onFailure(Call<OptimizationResponse> call, Throwable t) {
-                error.setValue("优化失败：" + t.getMessage());
-                isLoading.setValue(false);
-            }
-        });
+            });
     }
 
     private void processOptimizedText(String text) {
@@ -145,5 +148,14 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<String> getError() {
         return error;
+    }
+
+    public void setTranslationMode(boolean isTranslation) {
+        isTranslationMode = isTranslation;
+        translationMode.setValue(isTranslation);
+    }
+
+    public LiveData<Boolean> getTranslationMode() {
+        return translationMode;
     }
 } 

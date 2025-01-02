@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">12</string>
+
     <string name="privacy_policy_content">
         <![CDATA[
             一、用户注册信息\n
@@ -17,4 +17,7 @@
 如果您认为我们违反了本隐私政策或相关法律法规，您有权向我们投诉或向相关部门举报。 ]]>
     </string>
 
+    <string name="app_name">SpeechMate</string>
+    <string name="optimize_text">优化文本</string>
+    <string name="translate_text">翻译文本</string>
 </resources>

@@ -56,6 +56,15 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         
+        binding.toggleMode.check(R.id.btn_optimize);
+        binding.toggleMode.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                viewModel.setTranslationMode(checkedId == R.id.btn_translate);
+                binding.tvOptimizedTextTitle.setText(checkedId == R.id.btn_translate ? 
+                    "翻译文本" : "优化文本");
+            }
+        });
+        
         setupRecordButton();
         observeViewModel();
     }
