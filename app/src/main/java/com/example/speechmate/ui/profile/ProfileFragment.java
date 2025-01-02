@@ -127,6 +127,19 @@ public class ProfileFragment extends Fragment {
             showPolicyDialog();
         });
 
+        // 绑定退出登录点击事件
+        binding.quit.setOnClickListener(v -> {
+            // 设置 MainActivity 中的 isLogin 为 false
+            MainActivity.isLogin = false; // 确保 MainActivity 中的 isLogin 是 public static
+            MainActivity.Name = null; // 恢复默认值
+            MainActivity.Sign = null; // 恢复默认值
+
+            // 返回到登录界面
+            Intent intent = new Intent(getActivity(), login.class);
+            startActivity(intent);
+            requireActivity().finish(); // 结束当前 Activity
+        });
+
         // 接收登录传递的用户信息
         if (getArguments() != null) {
             String nickname = getArguments().getString("nickname");
@@ -204,6 +217,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
-//
+
     }
 }

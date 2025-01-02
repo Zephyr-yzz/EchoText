@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private DatabaseHelper databaseHelper;
 
-    private static boolean isLogin;
-    private static String Name;
-    private static String Sign;
+    public static boolean isLogin;
+    public static String Name;
+    public static String Sign;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
